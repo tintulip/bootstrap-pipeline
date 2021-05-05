@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "state_bucket" {
-  arn            = "arn:aws:s3:::cla-production-state"
-  bucket         = "cla-production-state"
-  force_destroy  = "false"
-  
+  arn           = "arn:aws:s3:::cla-production-state"
+  bucket        = "cla-production-state"
+  force_destroy = "false"
+
 
   server_side_encryption_configuration {
     rule {
