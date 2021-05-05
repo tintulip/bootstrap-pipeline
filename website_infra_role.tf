@@ -21,6 +21,8 @@ resource "aws_iam_policy" "site_publisher_policy" {
 
 
 
+
+
 data "aws_iam_policy_document" "site_publisher_policy" {
 
   statement {
@@ -32,6 +34,11 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:ListUsers",
       "iam:TagUser",
       "iam:UntagUser",
+      "iam:CreateAccessKey",
+      "iam:GetAccessKey",
+      "iam:DeleteAccessKey",
+      "iam:ListAccessKeys",
+      "iam:UpdateAccessKey",
       "iam:UpdateUser"
 
     ]
