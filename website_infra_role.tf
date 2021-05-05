@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "site_publisher_policy" {
     ]
 
     resources = [
-      "arn:aws:iam::${local.aws_account_id}:user/${local.site_publisher_role_name}"
+      "arn:aws:iam::${local.aws_account_id}:user/*"
     ]
 
   }
@@ -152,9 +152,8 @@ resource "aws_iam_role" "website_infra" {
 POLICY
 
   description          = "for usage by the tf stack and pipeline creating the website s infra"
-  managed_policy_arns  = ["arn:aws:iam::aws:policy/AmazonS3FullAccess"]
+  managed_policy_arns  = ["arn:aws:iam::aws:policy/AmazonS3FullAccess", aws_iam_policy.site_publisher_policy.arn]
   max_session_duration = "3600"
   name                 = "website-infra"
   path                 = "/"
 }
-
