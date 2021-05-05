@@ -25,7 +25,6 @@ data "aws_iam_policy_document" "site_publisher_policy" {
 
   statement {
     actions = [
-      "iam:AddUserToGroup",
       "iam:CreateUser",
       "iam:DeleteUser",
       "iam:GetUser",
@@ -33,8 +32,8 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:ListUsers",
       "iam:TagUser",
       "iam:UntagUser",
-      "iam:UpdateUser",
-      "iam:RemoveUserFromGroup"
+      "iam:UpdateUser"
+
     ]
 
     resources = [
@@ -57,6 +56,8 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:ListGroups",
       "iam:ListGroupsForUser",
       "iam:PutGroupPolicy",
+      "iam:AddUserToGroup",
+      "iam:RemoveUserFromGroup",
       "iam:UpdateGroup"
     ]
 
