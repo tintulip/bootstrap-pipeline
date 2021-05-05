@@ -119,6 +119,22 @@ data "aws_iam_policy_document" "site_publisher_policy" {
 
   }
 
+  statement {
+    actions = [
+      "cloudfront:CreateDistribution",
+      "cloudfront:CreateInvalidation",
+      "cloudfront:CreateCloudFrontOriginAccessIdentity",
+      "cloudfront:TagResource",
+      "cloudfront:Get*",
+      "cloudfront:List*",
+      "cloudfront:Update*"
+    ]
+
+    resources = [
+      "*"
+    ]
+  }
+
 }
 
 
