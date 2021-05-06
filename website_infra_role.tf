@@ -31,14 +31,14 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:DeleteUser",
       "iam:GetUser",
       "iam:ListUserTags",
-      "iam:ListUsers",
       "iam:TagUser",
       "iam:UntagUser",
       "iam:CreateAccessKey",
-      "iam:GetAccessKey",
+      "iam:GetAccessKeyLastUsed",
       "iam:DeleteAccessKey",
       "iam:ListAccessKeys",
       "iam:UpdateAccessKey",
+      "iam:ListGroupsForUser",
       "iam:UpdateUser"
 
     ]
@@ -60,8 +60,6 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:GetGroupPolicy",
       "iam:ListAttachedGroupPolicies",
       "iam:ListGroupPolicies",
-      "iam:ListGroups",
-      "iam:ListGroupsForUser",
       "iam:PutGroupPolicy",
       "iam:AddUserToGroup",
       "iam:RemoveUserFromGroup",
@@ -85,7 +83,6 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:ListAttachedRolePolicies",
       "iam:ListRolePolicies",
       "iam:ListRoleTags",
-      "iam:ListRoles",
       "iam:PutRolePolicy",
       "iam:PutRolePermissionsBoundary",
       "iam:TagRole",
@@ -106,17 +103,23 @@ data "aws_iam_policy_document" "site_publisher_policy" {
     actions = [
       "iam:CreatePolicy",
       "iam:DeletePolicy",
-      "iam:GetPolicy",
-      "iam:ListPolicies",
-      "iam:ListPolicyTags",
-      "iam:TagPolicy",
-      "iam:UntagPolicy"
+      "iam:GetPolicy"
     ]
 
     resources = [
       "arn:aws:iam::${local.aws_account_id}:policy/${local.site_publisher_role_name}"
     ]
 
+  }
+
+  statement {
+    actions = [
+      "iam:ListUsers",
+      "iam:ListGroups",
+      "iam:ListPolicies",
+      "iam:ListRoles"
+    ]
+    resources = ["*"]
   }
 
   statement {
