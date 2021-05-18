@@ -107,7 +107,8 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:CreatePolicy",
       "iam:DeletePolicy",
       "iam:GetPolicy",
-      "iam:GetPolicyVersion"
+      "iam:GetPolicyVersion",
+      "iam:ListPolicyVersion"
     ]
 
     resources = [
