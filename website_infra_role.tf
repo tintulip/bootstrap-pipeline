@@ -35,7 +35,8 @@ data "aws_iam_policy_document" "site_logs_policy" {
     actions = [
       "s3:GetReplicationConfiguration",
       "s3:PutReplicationConfiguration",
-      "s3:ListBucket"
+      "s3:ListBucket",
+      "s3:PutBucketPolicy"
     ]
 
     resources = [
