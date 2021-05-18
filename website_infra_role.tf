@@ -19,8 +19,30 @@ resource "aws_iam_policy" "site_publisher_policy" {
   name   = "site_publisher_policy"
 }
 
+resource "aws_iam_policy" "site_logs_policy" {
+  policy = data.aws_iam_policy_document.site_logs_policy.json
+  name = "site_logs_policy"
+}
+
+resource "aws_iam_role_policy_attachment" "site_logs_iam_policy" {
+  policy_arn = aws_iam_policy.site_logs_policy.arn
+  role       = "website-infra"
+}
 
 
+data "aws_iam_policy_document" "site_logs_policy"{
+  statement {
+    actions = [
+      "s3:GetReplicationConfiguration",
+      "s3:PutReplicationConfiguration",
+      "s3:ListBucket"
+    ]
+    
+    resources = [
+      "arn:aws:s3:::cla-website-logs"
+    ]
+  }
+}
 
 
 data "aws_iam_policy_document" "site_publisher_policy" {
@@ -186,7 +208,7 @@ resource "aws_iam_role" "website_infra" {
 POLICY
 
   description          = "for usage by the tf stack and pipeline creating the website s infra"
-  managed_policy_arns  = ["arn:aws:iam::aws:policy/AmazonS3FullAccess", aws_iam_policy.site_publisher_policy.arn]
+  managed_policy_arns  = ["arn:aws:iam::aws:policy/AmazonS3FullAccess", aws_iam_policy.site_publisher_policy.arn,aws_iam_policy.site_logs_policy.arn ]
   max_session_duration = "3600"
   name                 = "website-infra"
   path                 = "/"
