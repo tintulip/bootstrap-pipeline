@@ -111,7 +111,7 @@ data "aws_iam_policy_document" "site_publisher_policy" {
 
     resources = [
       "arn:aws:iam::${local.aws_account_id}:policy/${local.site_publisher_role_name}",
-      "arn:aws:iam::${local.aws_account_id}:role/${local.log_replication_role_name}"
+      "arn:aws:iam::${local.aws_account_id}:policy/${local.log_replication_role_name}"
     ]
 
   }
