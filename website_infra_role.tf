@@ -94,7 +94,10 @@ data "aws_iam_policy_document" "site_publisher_policy" {
     ]
 
     resources = [
-      "arn:aws:iam::${local.aws_account_id}:role/${local.site_publisher_role_name}"
+      "arn:aws:iam::${local.aws_account_id}:role/${local.site_publisher_role_name}",
+      "arn:aws:iam::${local.aws_account_id}:role/${local.log_replication_role_name}"
+
+
     ]
 
   }
@@ -107,7 +110,8 @@ data "aws_iam_policy_document" "site_publisher_policy" {
     ]
 
     resources = [
-      "arn:aws:iam::${local.aws_account_id}:policy/${local.site_publisher_role_name}"
+      "arn:aws:iam::${local.aws_account_id}:policy/${local.site_publisher_role_name}",
+      "arn:aws:iam::${local.aws_account_id}:role/${local.log_replication_role_name}"
     ]
 
   }
@@ -142,6 +146,7 @@ data "aws_iam_policy_document" "site_publisher_policy" {
 
 
 resource "aws_iam_user_policy" "website_infra" {
+  #checkov:skip=CKV_AWS_40: Do not want to attach IAM policy to group, single user use case
   name = "website-infra-assume-role"
 
   policy = <<POLICY

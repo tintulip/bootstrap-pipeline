@@ -7,6 +7,7 @@ terraform {
 }
 
 locals {
-  aws_account_id           = "073232250817"
-  site_publisher_role_name = "site-publisher"
+  aws_account_id            = "073232250817"
+  site_publisher_role_name  = "site-publisher"
+  log_replication_role_name = "log-replication"
 }
