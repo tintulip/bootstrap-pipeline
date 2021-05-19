@@ -29,6 +29,9 @@ resource "aws_iam_role_policy_attachment" "site_logs_iam_policy" {
   role       = "website-infra"
 }
 
+data "aws_kms_key" "s3_master"{
+  key_id = "alias/aws/s3"
+}
 
 data "aws_iam_policy_document" "site_logs_policy" {
   statement {
@@ -46,8 +49,18 @@ data "aws_iam_policy_document" "site_logs_policy" {
       "arn:aws:s3:::cla-website-logs"
     ]
   }
-}
 
+  statement {
+    actions = [
+      "kms:DescribeKey"
+    ]
+
+    resources = [
+      data.aws_kms_key.s3_master.arn
+    ]
+
+  }
+}
 
 data "aws_iam_policy_document" "site_publisher_policy" {
 
@@ -171,7 +184,6 @@ data "aws_iam_policy_document" "site_publisher_policy" {
   }
 
 }
-
 
 resource "aws_iam_user_policy" "website_infra" {
   #checkov:skip=CKV_AWS_40: Do not want to attach IAM policy to group, single user use case
