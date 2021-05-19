@@ -129,8 +129,8 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:UpdateAssumeRolePolicy",
       "iam:UpdateRole",
       "iam:UpdateRoleDescription",
-      "iam:ListInstanceProfilesForRole"
-
+      "iam:ListInstanceProfilesForRole",
+      "iam:PassRole"
     ]
 
     resources = [
