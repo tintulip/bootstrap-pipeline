@@ -130,8 +130,7 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:UpdateRole",
       "iam:UpdateRoleDescription",
       "iam:ListInstanceProfilesForRole",
-      "iam:PassRole",
-      "iam:TagPolicy"
+      "iam:PassRole"
     ]
 
     resources = [
@@ -149,7 +148,8 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:DeletePolicy",
       "iam:GetPolicy",
       "iam:GetPolicyVersion",
-      "iam:ListPolicyVersions"
+      "iam:ListPolicyVersions",
+      "iam:TagPolicy"
     ]
 
     resources = [
