@@ -128,7 +128,8 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:UntagRole",
       "iam:UpdateAssumeRolePolicy",
       "iam:UpdateRole",
-      "iam:UpdateRoleDescription"
+      "iam:UpdateRoleDescription",
+      "iam:ListInstanceProfilesForRole"
 
     ]
 
