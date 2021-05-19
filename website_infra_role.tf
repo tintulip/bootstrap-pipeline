@@ -29,7 +29,7 @@ resource "aws_iam_role_policy_attachment" "site_logs_iam_policy" {
   role       = "website-infra"
 }
 
-data "aws_kms_key" "s3_master"{
+data "aws_kms_key" "s3_master" {
   key_id = "alias/aws/s3"
 }
 
