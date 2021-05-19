@@ -203,7 +203,7 @@ resource "aws_iam_role" "website_infra" {
       "Condition": {},
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::073232250817:root"
+        "AWS": "arn:aws:iam::073232250817:user/website-infra"
       }
     }
   ],
