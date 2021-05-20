@@ -145,6 +145,7 @@ data "aws_iam_policy_document" "site_publisher_policy" {
   statement {
     actions = [
       "iam:CreatePolicy",
+      "iam:CreatePolicyVersion",
       "iam:DeletePolicy",
       "iam:GetPolicy",
       "iam:GetPolicyVersion",
