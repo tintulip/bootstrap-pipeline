@@ -151,7 +151,8 @@ data "aws_iam_policy_document" "site_publisher_policy" {
       "iam:GetPolicy",
       "iam:GetPolicyVersion",
       "iam:ListPolicyVersions",
-      "iam:TagPolicy"
+      "iam:TagPolicy",
+      "iam:DeletePolicyVersion"
     ]
 
     resources = [
