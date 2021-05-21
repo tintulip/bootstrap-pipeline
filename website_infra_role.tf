@@ -58,7 +58,7 @@ data "aws_iam_policy_document" "site_logs_policy" {
     resources = [
       "arn:aws:kms:eu-west-2:${local.log_archive_aws_account_id}:alias/s3/log-archive",
       "arn:aws:kms:eu-west-2:${local.log_archive_aws_account_id}:key/*",
-      "arm:aws:kms:eu-west-2:${local.aws_account_id}:key/*"
+      "arn:aws:kms:eu-west-2:${local.aws_account_id}:key/*"
     ]
 
   }
