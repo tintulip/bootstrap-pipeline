@@ -1,3 +1,7 @@
+locals {
+  log_archive_aws_account_id = "689141309029"
+}
+
 resource "aws_iam_user" "website_infra" {
   force_destroy = "false"
   name          = "website-infra"
@@ -29,10 +33,6 @@ resource "aws_iam_role_policy_attachment" "site_logs_iam_policy" {
   role       = "website-infra"
 }
 
-data "aws_kms_key" "s3_master" {
-  key_id = "alias/aws/s3"
-}
-
 data "aws_iam_policy_document" "site_logs_policy" {
   statement {
     actions = [
@@ -56,7 +56,8 @@ data "aws_iam_policy_document" "site_logs_policy" {
     ]
 
     resources = [
-      data.aws_kms_key.s3_master.arn
+      "arn:aws:kms:eu-west-2:${local.log_archive_aws_account_id}:alias/s3/log-archive",
+      "arn:aws:kms:eu-west-2:${local.log_archive_aws_account_id}:*"
     ]
 
   }
@@ -198,7 +199,7 @@ resource "aws_iam_user_policy" "website_infra" {
     {
       "Action": "sts:AssumeRole",
       "Effect": "Allow",
-      "Resource": "arn:aws:iam::073232250817:role/website-infra",
+      "Resource": "arn:aws:iam::${local.aws_account_id}:role/website-infra",
       "Sid": "VisualEditor0"
     }
   ],
@@ -218,7 +219,7 @@ resource "aws_iam_role" "website_infra" {
       "Condition": {},
       "Effect": "Allow",
       "Principal": {
-        "AWS": "arn:aws:iam::073232250817:user/website-infra"
+        "AWS": "arn:aws:iam::${local.aws_account_id}:user/website-infra"
       }
     }
   ],
