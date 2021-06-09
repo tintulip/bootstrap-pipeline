@@ -68,48 +68,47 @@ data "aws_iam_policy_document" "site_publisher_policy" {
 
   statement {
     actions = [
+      "iam:GetUser",
+      "iam:AttachUserPolicy",
+      "iam:DetachUserPolicy",
+      "iam:ListAttachedUserPolicies",
+      "iam:ListAccessKeys"
+    ]
+    resources = [
+      "*"
+    ]
+    condition {
+      test     = "StringNotEquals"
+      variable = "aws:Resource"
+      values   = [aws_iam_user.website_infra.arn]
+    }
+  }
+
+  statement {
+    actions = [
       "iam:CreateUser",
       "iam:DeleteUser",
-      "iam:GetUser",
       "iam:ListUserTags",
       "iam:TagUser",
       "iam:UntagUser",
       "iam:CreateAccessKey",
       "iam:GetAccessKeyLastUsed",
       "iam:DeleteAccessKey",
-      "iam:ListAccessKeys",
       "iam:UpdateAccessKey",
       "iam:ListGroupsForUser",
+      "iam:DeleteUserPolicy",
+      "iam:PutUserPolicy",
+      "iam:ListUserPolicies",
       "iam:UpdateUser"
-
     ]
-
     resources = [
-      "arn:aws:iam::${local.aws_account_id}:user/*"
+      "arn:aws:iam::${local.aws_account_id}:user/${local.site_publisher_role_name}"
     ]
-
-  }
-
-  statement {
-    actions = [
-      "iam:AttachGroupPolicy",
-      "iam:CreateGroup",
-      "iam:DeleteGroup",
-      "iam:DeleteGroupPolicy",
-      "iam:DetachGroupPolicy",
-      "iam:GetGroup",
-      "iam:GetGroupPolicy",
-      "iam:ListAttachedGroupPolicies",
-      "iam:ListGroupPolicies",
-      "iam:PutGroupPolicy",
-      "iam:AddUserToGroup",
-      "iam:RemoveUserFromGroup",
-      "iam:UpdateGroup"
-    ]
-
-    resources = [
-      "arn:aws:iam::${local.aws_account_id}:group/${local.site_publisher_role_name}"
-    ]
+    condition {
+      test     = "StringNotEquals"
+      variable = "aws:Resource"
+      values   = [aws_iam_user.website_infra.arn]
+    }
   }
 
   statement {
@@ -138,8 +137,6 @@ data "aws_iam_policy_document" "site_publisher_policy" {
     resources = [
       "arn:aws:iam::${local.aws_account_id}:role/${local.site_publisher_role_name}",
       "arn:aws:iam::${local.aws_account_id}:role/${local.log_replication_role_name}"
-
-
     ]
 
   }
