@@ -18,6 +18,16 @@ resource "aws_iam_role_policy_attachment" "website_infra_iam_policy" {
   role       = "website-infra"
 }
 
+resource "aws_iam_role_policy_attachment" "state_bucket" {
+  policy_arn = aws_iam_policy.state_bucket_access.arn
+  role       = "website-infra"
+}
+
+resource "aws_iam_policy" "state_bucket_access" {
+  policy = module.kms_bucket.policy_document
+  name   = "prod_state_bucket_policy"
+}
+
 resource "aws_iam_policy" "site_publisher_policy" {
   policy = data.aws_iam_policy_document.site_publisher_policy.json
   name   = "site_publisher_policy"
@@ -198,8 +208,7 @@ resource "aws_iam_user_policy" "website_infra" {
     {
       "Action": "sts:AssumeRole",
       "Effect": "Allow",
-      "Resource": "arn:aws:iam::${local.aws_account_id}:role/website-infra",
-      "Sid": "VisualEditor0"
+      "Resource": "arn:aws:iam::${local.aws_account_id}:role/website-infra"
     }
   ],
   "Version": "2012-10-17"
@@ -226,9 +235,7 @@ resource "aws_iam_role" "website_infra" {
 }
 POLICY
 
-  description          = "for usage by the tf stack and pipeline creating the website s infra"
-  managed_policy_arns  = ["arn:aws:iam::aws:policy/AmazonS3FullAccess", aws_iam_policy.site_publisher_policy.arn, aws_iam_policy.site_logs_policy.arn]
-  max_session_duration = "3600"
-  name                 = "website-infra"
-  path                 = "/"
+  description = "for usage by the tf stack and pipeline creating the website s infra"
+  name        = "website-infra"
+  path        = "/"
 }

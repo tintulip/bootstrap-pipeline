@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "cla-production-state"
+    bucket = "tfstate-073232250817-production"
     key    = "pipeline-factory/dali.tfstate"
     region = "eu-west-2"
   }

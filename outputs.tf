@@ -1,6 +1,3 @@
-output "aws_s3_bucket_state_bucket_id" {
-  value = aws_s3_bucket.state_bucket.id
-}
 output "aws_iam_role_policy_attachment_website_infra_AmazonS3FullAccess_id" {
   value = aws_iam_role_policy_attachment.website_infra_AmazonS3FullAccess.id
 }
