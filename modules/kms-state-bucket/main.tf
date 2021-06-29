@@ -25,7 +25,10 @@ data "aws_iam_policy_document" "upload_to_bucket" {
     effect = "Allow"
 
     actions = [
+      "kms:DescribeKey",
       "kms:Decrypt",
+      "kms:GenerateDataKey*",
+      "kms:ReEncrypt*",
       "kms:Encrypt"
     ]
     resources = [aws_kms_key.state_bucket_key.arn]
